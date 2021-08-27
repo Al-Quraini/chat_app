@@ -1,0 +1,5 @@
+version: "Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)"
+options: "6f726fe35c2be4b0ae860e1ab94a108c"
+build_time: [1620762272, 488422000]
+inputs:
+  "/Users/mohammedal-quraini/AndroidStudioProjects/chat_app/ios/Runner/AppDelegate.swift": [1620762270, 106939837]
