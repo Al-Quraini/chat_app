@@ -20,7 +20,20 @@ class UsersList extends StatelessWidget {
             SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(left: 16,right: 16,top: 10),
-                child: Text("Chats",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Chats",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+                    TextButton(onPressed: (){
+
+                    }, child: Text(
+                      'Logout',
+                      style: TextStyle(
+                        color: Colors.red
+                      ),
+                    ))
+                  ],
+                ),
               ),
             ),
             Padding(
