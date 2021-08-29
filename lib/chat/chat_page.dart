@@ -64,7 +64,7 @@ class _ChatPageState extends State<ChatPage> {
 
                 if (snapshot.hasData) {
                   chatUsers = snapshot.data as List<ChatUsers>;
-                  print(chatUsers.isNotEmpty);
+                  // print(chatUsers.isNotEmpty);
 
                   return ListView.builder(
                     itemCount: chatUsers.length,

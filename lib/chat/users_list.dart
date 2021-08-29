@@ -104,7 +104,7 @@ class UsersList extends StatelessWidget {
 
                   if (snapshot.hasData) {
                     users = snapshot.data as List<User>;
-                    print(users.isNotEmpty);
+                    // print(users.isNotEmpty);
 
                     return ListView.builder(
                         itemCount: users.length,
@@ -116,7 +116,7 @@ class UsersList extends StatelessWidget {
                             onTap: (){
                               if(users[index].uid != FirebaseClass.getCurrentUserUid()) {
 
-                                print((users[index].uid == FirebaseClass.getCurrentUserUid()));
+                                // print((users[index].uid == FirebaseClass.getCurrentUserUid()));
 
                                 Navigator.pushNamed(context,
                                     ChatDetailPage.id,

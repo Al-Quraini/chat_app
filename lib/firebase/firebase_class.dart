@@ -38,12 +38,16 @@ class FirebaseClass {
           location :snapshot['location'],
           uid :snapshot.id,
         );
-      }).then((value) => print('data loaded successfully'))
-          .catchError((onError) => print(onError));
+      })
+          .then((value) {
+
+          })
+          .catchError((onError) {
+          });
 
       return user!;
     } catch (e) {
-      print(e);
+      // print(e);
       return u.User(name: 'name', email: 'email', imageUrl: 'imageUrl',
           phoneNumber: 'phoneNumber', location: 'location', uid: 'uid');
       // return null;
@@ -71,15 +75,17 @@ class FirebaseClass {
               );
 
               users.add(user);
-              print('sanpppppppp shoooooot ${users.length}');
+              // print('sanpppppppp shoooooot ${users.length}');
 
         }
-          }).then((value) => print('data loaded successfully'))
+          }).then((value) {
+            // print('data loaded successfully');
+          })
           .catchError((onError) => print(onError));
 
       return users;
     } catch (e) {
-      print(e);
+      // print(e);
       return [];
       // return null;
     }
@@ -92,7 +98,7 @@ class FirebaseClass {
           email: email, password: password);
       return user;
     }catch(e){
-      print(e);
+      // print(e);
       return null;
     }
   }
@@ -119,11 +125,11 @@ class FirebaseClass {
           // 'type' : message.type
         })
             .then((value) {
-          print('Data sent successfully');
+          // print('Data sent successfully');
           return true;
         })
             .catchError((error) {
-          print("Failed to add item: $error");
+          // print("Failed to add item: $error");
           return false;
         });
       });
@@ -159,7 +165,9 @@ class FirebaseClass {
         'imageUrl': user.imageUrl,
         'location': user.location,
       })
-          .then((value) => print('Data sen successfully'))
+          .then((value) {
+            // print('Data sen successfully');
+          })
           .catchError((error) => print("Failed to add user: $error"));
       callback();
 
@@ -169,7 +177,7 @@ class FirebaseClass {
   }
 
   Future<bool> readMessage({required u.User user}) async{
-    print('messageIds_________------- ${user.email}');
+    // print('messageIds_________------- ${user.email}');
 
     List<String> messageIds=[];
     try {
@@ -179,17 +187,17 @@ class FirebaseClass {
           getCurrentUserUid()!)).collection('messages')
           .where('sentBy', isNotEqualTo: getCurrentUserUid())
           .get().then((QuerySnapshot snapshots) async {
-            print(snapshots.docs.length);
+            // print(snapshots.docs.length);
         for(var snapshot in snapshots.docs){
           messageIds.add(snapshot.id);
         }
         await markRead(messageIds, user);
-        print(messageIds);
-        print('messageIds_________-------');
+        // print(messageIds);
+        // print('messageIds_________-------');
       })
 
           .then((value) {
-        print('Data sent by reading successfully');
+        // print('Data sent by reading successfully');
         return true;
       })
           .catchError((error) {
@@ -291,7 +299,7 @@ class FirebaseClass {
 
           print(chatUsers.length);
         }
-        print('mamamamamamamamamama ${chatUsers[0].chatMessage.length}');
+        // print('mamamamamamamamamama ${chatUsers[0].chatMessage.length}');
 
         return chatUsers;
 

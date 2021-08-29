@@ -73,8 +73,8 @@ class _BodyState extends State<Body> {
     else if (DateTime.now().difference(date).inDays < 7)
       return '${dayOfWeek(date)}, ${formatTime(date)}';
     else {
-      print(
-          'num of days is flkdnflksdfn ${DateTime.now().difference(date).inDays}');
+      // print(
+      //     'num of days is flkdnflksdfn ${DateTime.now().difference(date).inDays}');
       return '${dayOfWeek(date)}, ${DateFormat("MMMM d").format(date)}';
     }
   }

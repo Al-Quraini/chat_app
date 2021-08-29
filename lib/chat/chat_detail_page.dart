@@ -24,7 +24,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
   @override
   void initState() {
-    print(widget.argument.uid == FirebaseClass.getCurrentUserUid());
+    // print(widget.argument.uid == FirebaseClass.getCurrentUserUid());
     super.initState();
   }
 
