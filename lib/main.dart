@@ -5,6 +5,8 @@ import 'package:chat_app/chat/chat_page.dart';
 import 'package:chat_app/chat/users_list.dart';
 import 'package:chat_app/firebase/firebase_class.dart';
 import 'package:chat_app/models/user.dart';
+import 'package:chat_app/pages/animation_page.dart';
+import 'package:chat_app/pages/textfield_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -34,25 +36,31 @@ class MyApp extends StatelessWidget {
             case LoginScreen.id :
               return  MaterialPageRoute(builder: (context) =>
                   LoginScreen());
-              break;
 
 
              case SignupScreen.id :
                         return  MaterialPageRoute(builder: (context) =>
                             SignupScreen());
-                        break;
 
             case ChatPage.id  :
               return  MaterialPageRoute(builder: (_) =>
                   ChatPage()
               );
-              break;
 
            case UsersList.id  :
                         return  MaterialPageRoute(builder: (_) =>
                             UsersList()
                         );
-                        break;
+
+            case AnimationPage.id  :
+              return  MaterialPageRoute(builder: (_) =>
+                  AnimationPage()
+              );
+
+            case TextFieldPage.id  :
+              return  MaterialPageRoute(builder: (_) =>
+                  TextFieldPage()
+              );
 
 
             case ChatDetailPage.id  :
@@ -60,7 +68,6 @@ class MyApp extends StatelessWidget {
               return  MaterialPageRoute(builder: (_) =>
                   ChatDetailPage(argument: arg,)
               );
-              break;
 
 
             default : return null;

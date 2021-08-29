@@ -1,5 +1,8 @@
+import 'package:chat_app/authentication/login_screen.dart';
 import 'package:chat_app/firebase/firebase_class.dart';
 import 'package:chat_app/models/user.dart';
+import 'package:chat_app/pages/animation_page.dart';
+import 'package:chat_app/pages/textfield_page.dart';
 import 'package:flutter/material.dart';
 import 'chat_detail_page.dart';
 import 'components/user_list.dart';
@@ -25,7 +28,8 @@ class UsersList extends StatelessWidget {
                   children: [
                     Text("Chats",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
                     TextButton(onPressed: (){
-
+                      FirebaseClass.logoutUser();
+                      Navigator.of(context).pushReplacementNamed(LoginScreen.id);
                     }, child: Text(
                       'Logout',
                       style: TextStyle(
@@ -36,6 +40,44 @@ class UsersList extends StatelessWidget {
                 ),
               ),
             ),
+
+            Row(
+              children: [
+                    ElevatedButton(
+
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                        fixedSize: Size(150, 50)
+                    ),
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AnimationPage()),
+                      );
+                    },
+                    child: Text(
+                        'Animation'
+                    )
+                    ),
+
+                ElevatedButton(
+
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.pink,
+                        fixedSize: Size(150, 50)
+                    ),
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TextFieldPage()),
+                      );
+                    },
+                    child: Text(
+                        'Text Fields'
+                    )),
+                  ],
+            ),
+
             Padding(
               padding: EdgeInsets.only(top: 16,left: 16,right: 16),
               child: TextField(

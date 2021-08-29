@@ -58,6 +58,8 @@ class FirebaseClass {
           .get().then((QuerySnapshot snapshots) async {
 
         for(QueryDocumentSnapshot snapshot in snapshots.docs) {
+          if (snapshot.id == getCurrentUserUid()!)
+            continue;
 
               final user = u.User(
                 name: snapshot['name'] ?? "",
@@ -272,7 +274,7 @@ class FirebaseClass {
         ChatUsers chatUser;
         for (QueryDocumentSnapshot snapshot in snapshots.docs) {
           var data = snapshot;
-          Timestamp timeStamp =data['timeStamp'];
+          // Timestamp timeStamp =data['timeStamp'];
 
           chatUser = ChatUsers(
               chatId: snapshot.id,
@@ -366,6 +368,8 @@ class FirebaseClass {
       return _auth.currentUser!.uid;
 
   }
+
+  static logoutUser() => _auth.signOut();
 
 
 }
