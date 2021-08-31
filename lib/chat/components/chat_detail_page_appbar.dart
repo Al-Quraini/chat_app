@@ -39,7 +39,7 @@ class ChatDetailPageAppBar extends StatelessWidget implements PreferredSizeWidge
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(user.name,style: TextStyle(fontWeight: FontWeight.w600),),
+                    Text(user.name!,style: TextStyle(fontWeight: FontWeight.w600),),
                     SizedBox(height: 6,),
                     Text("Online",style: TextStyle(color: Colors.green,fontSize: 12),),
                   ],

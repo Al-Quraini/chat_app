@@ -1,5 +1,6 @@
 import 'package:chat_app/chat/models/chat_message.dart';
-import 'package:chat_app/firebase/firebase_class.dart';
+import 'package:chat_app/firebase/authentication_service.dart';
+import 'package:chat_app/firebase/firestore_service.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:chat_app/utils/enums.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class _ChatUsersListState extends State<ChatUsersList> {
                   CircleAvatar(
                     backgroundImage: FadeInImage.assetNetwork(
                         placeholder: '/assets/images/place_holder.jpg',
-                        image:widget.user.imageUrl
+                        image:widget.user.imageUrl!
                         ).image,
                     maxRadius: 30,
                   ),
@@ -44,7 +45,7 @@ class _ChatUsersListState extends State<ChatUsersList> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(widget.user.name),
+                          Text(widget.user.name!),
                           SizedBox(height: 6,),
                           Text( messageText(),style: TextStyle(fontSize: 14,color: Colors.grey.shade500),),
                         ],
@@ -57,7 +58,7 @@ class _ChatUsersListState extends State<ChatUsersList> {
             Text(widget.chatMessages.last.dateTime.toString(),style:
             TextStyle(fontSize: 12,color:
             widget.chatMessages.last.isRead && widget.chatMessages.last.sentBy
-                == FirebaseClass.currentUser.uid?
+                == AuthenticationService.currentUser.uid?
             Colors.pink:Colors.grey.shade500),),
           ],
         ),

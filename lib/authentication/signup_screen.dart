@@ -1,6 +1,8 @@
+import 'package:chat_app/authentication/verification_page.dart';
 import 'package:chat_app/chat/chat_page.dart';
 import 'package:chat_app/chat/users_list.dart';
-import 'package:chat_app/firebase/firebase_class.dart';
+import 'package:chat_app/firebase/authentication_service.dart';
+import 'package:chat_app/firebase/firestore_service.dart';
 import 'package:chat_app/models/user.dart' as u;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,9 +23,9 @@ class _SignupScreenState extends State<SignupScreen> {
     'email' : '',
     'password' : ''
   };
-  String? name;
-  String? email;
-  String? password;
+  late String name;
+  late String email;
+  late String password;
   String phone ='331342';
   String location='somewhere';
 
@@ -32,31 +34,38 @@ class _SignupScreenState extends State<SignupScreen> {
 
 
   void registerUser() async{
+
     String? imageUrl;
-    //BlocProvider.of<CounterCubit>(context).placeImage(file);
+    final user =await AuthenticationService()
+        .createNewUser(email, password);
 
-
-
-    final user =await FirebaseClass()
-        .createNewUser(email!, password!);
-
+    print('dskgnsdjlkgnsdlgndsfjlgnsadjlgnjlsdfnjl');
 
 
       userData = u.User(
-        uid: FirebaseClass.getCurrentUserUid()!,
-        name : name!,
-        email : email!,
-        imageUrl : imageUrl!,
+        uid: AuthenticationService.getCurrentUserUid()!,
+        name : name,
+        email : email,
+        imageUrl : imageUrl,
         phoneNumber : phone,
         location : location,
       );
 
-      await FirebaseClass().addUser(
+      await FirestoreService().addUser(
           userData!,
-              (){
+              () async {
+            await user!.user!.reload();
+
+
+            if(user.user!.emailVerified)
                 Navigator.of(context).pushReplacementNamed(UsersList.id);
+
+            else
+              Navigator.of(context).pushReplacementNamed(VerificationPage.id);
           }
       );
+
+
 
 
 

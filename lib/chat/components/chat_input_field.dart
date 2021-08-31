@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:chat_app/chat/models/chat_message.dart';
 import 'package:chat_app/chat/models/send_menu_items.dart';
-import 'package:chat_app/firebase/firebase_class.dart';
+import 'package:chat_app/firebase/authentication_service.dart';
+import 'package:chat_app/firebase/firestore_service.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:chat_app/utils/constants.dart';
 import 'package:chat_app/utils/enums.dart';
@@ -214,10 +215,10 @@ class _ChatInputFieldState extends State<ChatInputField> {
                     type: MessageFrom.Sender,
                     chatMessageType : ChatMessageType.text,
                     dateTime: DateTime.now(),
-                    sentBy: FirebaseClass.getCurrentUserUid()!);
-                print(FirebaseClass.getCurrentUserUid()!+'_____');
+                    sentBy: AuthenticationService.getCurrentUserUid()!);
+                print(AuthenticationService.getCurrentUserUid()!+'_____');
 
-                FirebaseClass()
+                FirestoreService()
                     .sendMessage(messageTo: widget.user,
                     message: chatMessage);
                 messageTextController.clear();
@@ -258,9 +259,9 @@ class _ChatInputFieldState extends State<ChatInputField> {
         type: MessageFrom.Sender,
         chatMessageType : chatMessageType,
         dateTime: DateTime.now(),
-        sentBy: FirebaseClass.getCurrentUserUid()!);
+        sentBy: AuthenticationService.getCurrentUserUid()!);
 
-    FirebaseClass().sendMessage(messageTo: widget.user,message: chatMessage);
+    FirestoreService().sendMessage(messageTo: widget.user,message: chatMessage);
     messageTextController.clear();
   }
 }

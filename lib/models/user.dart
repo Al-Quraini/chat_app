@@ -8,20 +8,21 @@ import 'package:equatable/equatable.dart';
 @JsonSerializable()
 class User extends Equatable{
 
-final String name, email, imageUrl, phoneNumber,location,uid;
+final String? name, email, imageUrl, phoneNumber,location;
+final String uid;
 
   User({
-    required this.name,
-    required this.email,
-    required this.imageUrl,
-    required this.phoneNumber,
-    required this.location,
+    this.name,
+    this.email,
+    this.imageUrl,
+    this.phoneNumber,
+    this.location,
     required this.uid,
   });
 
 @override
-  List<Object> get props =>[this.name, this.email,
-  this.phoneNumber, this.location, this.phoneNumber];
+  List<Object> get props =>[this.name!, this.email!,
+  this.phoneNumber!, this.location!, this.phoneNumber!];
 
 
 

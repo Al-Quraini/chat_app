@@ -1,3 +1,4 @@
+import 'package:chat_app/firebase/firestore_service.dart';
 import 'package:flutter/material.dart';
 
 const Color primary = Color(0xff6635cb);
@@ -31,188 +32,195 @@ class _TextFieldPageState extends State<TextFieldPage> {
           // text 1
           Padding(
             padding: EdgeInsets.all(12),
-            child: TextFormField(
-              textAlign: TextAlign.start,
-              keyboardType: TextInputType.text,
-              onChanged: (value){
-                print('onChanged : $value');
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    keyboardType: TextInputType.text,
+                    onChanged: (value){
+                      text1 = value;
+                    },
 
-              },
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: primary, width: 1.0),
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
+                    validator: (value) {
+                      if (value == null && value!.isEmpty) {
+                        print('nooooooo');
+                        return 'This field is Required';
+                      }
+                    },
+
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: primary, width: 1.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
 
 
-                hintText: 'Text 1',
-                hintStyle: TextStyle(
-                  color:
-                       primaryColor
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
+                      hintText: 'Text 1',
+                      hintStyle: TextStyle(
+                          color:
+                          primaryColor
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                      filled: true,
+                      contentPadding: EdgeInsets.all(16),
+                      fillColor: editTextBackground,
+                    ),
                   ),
                 ),
-                filled: true,
-                contentPadding: EdgeInsets.all(16),
-                fillColor: editTextBackground,
-              ),
+              ],
             ),
           ),
           Padding(
             padding: EdgeInsets.all(12),
-            child: TextFormField(
-              textAlign: TextAlign.start,
-              keyboardType: TextInputType.text,
-              onEditingComplete: (){
-                print('onEditingComplete');
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    keyboardType: TextInputType.text,
+                    onChanged: (value){
+                      text2 = value;
+                    },
 
-              },
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: primary, width: 1.0),
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
+                    validator: (value) {
+                      if (value == null && value!.isEmpty) {
+                        print('nooooooo');
+                        return 'This field is Required';
+                      }
+                    },
+
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: primary, width: 1.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
 
 
-                hintText: 'Text 2',
-                hintStyle: TextStyle(
-                    color:
-                    primaryColor
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
+                      hintText: 'Text 2',
+                      hintStyle: TextStyle(
+                          color:
+                          primaryColor
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                      filled: true,
+                      contentPadding: EdgeInsets.all(16),
+                      fillColor: editTextBackground,
+                    ),
                   ),
                 ),
-                filled: true,
-                contentPadding: EdgeInsets.all(16),
-                fillColor: editTextBackground,
-              ),
+              ],
             ),
           ),
           Padding(
             padding: EdgeInsets.all(12),
-            child: TextFormField(
-              key: _formKey3,
-              textAlign: TextAlign.start,
-              keyboardType: TextInputType.text,
-              onSaved: (value){
-                print('onSaved : $value');
-                debugPrint("on save event");
-                print(value);
-              },
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    keyboardType: TextInputType.text,
+                    onChanged: (value){
+                      text3 = value;
+                    },
 
-              validator: (value) {
-                if (value == null && value!.isEmpty) {
-                  print('nooooooo');
-                  return 'This field is Required';
-                }
-              },
+                    validator: (value) {
+                      if (value == null && value!.isEmpty) {
+                        print('nooooooo');
+                        return 'This field is Required';
+                      }
+                    },
 
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: primary, width: 1.0),
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: primary, width: 1.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
 
 
-                hintText: 'Text 3',
-                hintStyle: TextStyle(
-                    color:
-                    primaryColor
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
+                      hintText: 'Text 3',
+                      hintStyle: TextStyle(
+                          color:
+                          primaryColor
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                      filled: true,
+                      contentPadding: EdgeInsets.all(16),
+                      fillColor: editTextBackground,
+                    ),
                   ),
                 ),
-                filled: true,
-                contentPadding: EdgeInsets.all(16),
-                fillColor: editTextBackground,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(12),
-
-            child: TextFormField(
-              textAlign: TextAlign.start,
-              keyboardType: TextInputType.text,
-              onFieldSubmitted: (value){
-                print('onFieldSubmitted');
-              },
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: primary, width: 1.0),
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-
-
-                hintText: 'Text 4',
-                hintStyle: TextStyle(
-                    color:
-                    primaryColor
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                filled: true,
-                contentPadding: EdgeInsets.all(16),
-                fillColor: editTextBackground,
-              ),
+              ],
             ),
           ),
 
           Padding(
             padding: EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    keyboardType: TextInputType.text,
+                    onChanged: (value){
+                      text4 = value;
+                    },
 
-            child: TextField(
-              textAlign: TextAlign.start,
-              keyboardType: TextInputType.text,
-              onSubmitted: (value){
-                print('onSubmitted $value');
-              },
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: primary, width: 1.0),
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
+                    validator: (value) {
+                      if (value == null && value!.isEmpty) {
+                        print('nooooooo');
+                        return 'This field is Required';
+                      }
+                    },
+
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: primary, width: 1.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
 
 
-                hintText: 'Text 5',
-                hintStyle: TextStyle(
-                    color:
-                    primaryColor
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
+                      hintText: 'Text 4',
+                      hintStyle: TextStyle(
+                          color:
+                          primaryColor
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                      filled: true,
+                      contentPadding: EdgeInsets.all(16),
+                      fillColor: editTextBackground,
+                    ),
                   ),
                 ),
-                filled: true,
-                contentPadding: EdgeInsets.all(16),
-                fillColor: editTextBackground,
-              ),
+              ],
             ),
           ),
 
@@ -223,11 +231,17 @@ class _TextFieldPageState extends State<TextFieldPage> {
                   fixedSize: Size(150, 50)
               ),
               onPressed: (){
-                // if (_formKey3.currentState == null && !_formKey3.currentState!.validate()) {
-                //   return;
-                // }
+                print('$text1 $text2 $text3');
 
-                _onFormSaved();
+                Map<String, String> map = {
+                  'text1' : text1,
+                  'text2' : text2,
+                  'text3' : text3,
+                  'text4' : text4,
+
+                };
+
+                FirestoreService().addTexts(map);
               },
               child: Text(
                   'Save',
@@ -241,12 +255,5 @@ class _TextFieldPageState extends State<TextFieldPage> {
     );
   }
 
-  void _onFormSaved() {
-    if (_formKey3.currentState == null) {
-      print("_formKey.currentState is null!");
-    } else if (_formKey3.currentState!.validate()) {
-      print("Form input is valid");
-    }
-    }
   }
 

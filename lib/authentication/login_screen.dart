@@ -1,5 +1,7 @@
+import 'package:chat_app/authentication/reset_page.dart';
 import 'package:chat_app/chat/users_list.dart';
-import 'package:chat_app/firebase/firebase_class.dart';
+import 'package:chat_app/firebase/authentication_service.dart';
+import 'package:chat_app/firebase/firestore_service.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:flutter/material.dart';
 import 'signup_screen.dart';
@@ -17,9 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
   User? user;
 
   void loginUser() async{
-    //BlocProvider.of<CounterCubit>(context).showSpinner();
 
-    await FirebaseClass().loginUser(email!, password!,);
+    await AuthenticationService().loginUser(email!, password!,);
 
       loginSuccess();
 
@@ -40,8 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> loadData() async{
     print('meeeeeeeeeeeeeeeeeeeeeeeeeeem1');
-    this.user = (await FirebaseClass().loadUserData(
-        userUid: FirebaseClass.getCurrentUserUid()!
+    this.user = (await FirestoreService().loadUserData(
+        userUid: AuthenticationService.getCurrentUserUid()!
     ));
 
   }
@@ -108,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Container(
-                height: 260,
+                height: 300,
                 width: 300,
                 padding: EdgeInsets.all(16),
                 child: Form(
@@ -152,6 +153,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           {
                           },*/
                         ),
+                        
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(onPressed: (){
+                              Navigator.of(context)
+                                  .pushNamed(ResetPage.id);
+
+                            }, child: Text('Forget Password'))
+                          ],
+                        ),
                         SizedBox(
                           height: 30,
                         ),
@@ -161,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           onPressed: ()
                           async {
-                            await FirebaseClass().loginUser(email!, password!);
+                            await AuthenticationService().loginUser(email!, password!);
                             Navigator.of(context).pushReplacementNamed(UsersList.id);
                           },
                           shape: RoundedRectangleBorder(

@@ -1,5 +1,6 @@
 import 'package:chat_app/authentication/login_screen.dart';
-import 'package:chat_app/firebase/firebase_class.dart';
+import 'package:chat_app/firebase/authentication_service.dart';
+import 'package:chat_app/firebase/firestore_service.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:chat_app/pages/animation_page.dart';
 import 'package:chat_app/pages/textfield_page.dart';
@@ -28,7 +29,7 @@ class UsersList extends StatelessWidget {
                   children: [
                     Text("Chats",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
                     TextButton(onPressed: (){
-                      FirebaseClass.logoutUser();
+                      AuthenticationService.logoutUser();
                       Navigator.of(context).pushReplacementNamed(LoginScreen.id);
                     }, child: Text(
                       'Logout',
@@ -52,7 +53,7 @@ class UsersList extends StatelessWidget {
                     onPressed: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AnimationPage()),
+                        MaterialPageRoute(builder: (context) => AnimatedListSample()),
                       );
                     },
                     child: Text(
@@ -114,7 +115,7 @@ class UsersList extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: (){
-                              if(users[index].uid != FirebaseClass.getCurrentUserUid()) {
+                              if(users[index].uid != AuthenticationService.getCurrentUserUid()) {
 
                                 // print((users[index].uid == FirebaseClass.getCurrentUserUid()));
 
@@ -147,5 +148,5 @@ class UsersList extends StatelessWidget {
 
   Future<List<User>> getUsers() async =>
       // await Future.delayed(Duration(milliseconds: 100), () {
-  await FirebaseClass().getUsers();
+  await FirestoreService().getUsers();
 }

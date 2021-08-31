@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:chat_app/chat/users_list.dart';
-import 'package:chat_app/firebase/firebase_class.dart';
+import 'package:chat_app/firebase/authentication_service.dart';
+import 'package:chat_app/firebase/firestore_service.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,7 @@ class _ChatPageState extends State<ChatPage> {
                       return FutureBuilder<User>(
                         future: getUserData(chatUsers[index].senders.where((element)
                         => element
-                            != FirebaseClass.getCurrentUserUid())
+                            != AuthenticationService.getCurrentUserUid())
                             .first),
                         builder: (context, snapshot) {
                           User user;
@@ -113,12 +114,12 @@ class _ChatPageState extends State<ChatPage> {
   }
   Future<User> getUserData(String userId) async =>
       // await Future.delayed(Duration(milliseconds: 100), () {
-  await FirebaseClass().loadUserData(userUid: userId);
+  await FirestoreService().loadUserData(userUid: userId);
 
 
 Future<List<ChatUsers>> getChats() async =>
     // await Future.delayed(Duration(milliseconds: 100), () {
-await FirebaseClass().getChats();
+await FirestoreService().getChats();
 
 
 }

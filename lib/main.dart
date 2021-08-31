@@ -1,14 +1,18 @@
 import 'package:chat_app/authentication/login_screen.dart';
+import 'package:chat_app/authentication/reset_page.dart';
 import 'package:chat_app/authentication/signup_screen.dart';
+import 'package:chat_app/authentication/verification_page.dart';
 import 'package:chat_app/chat/chat_detail_page.dart';
 import 'package:chat_app/chat/chat_page.dart';
 import 'package:chat_app/chat/users_list.dart';
-import 'package:chat_app/firebase/firebase_class.dart';
+import 'package:chat_app/firebase/firestore_service.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:chat_app/pages/animation_page.dart';
 import 'package:chat_app/pages/textfield_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+import 'firebase/authentication_service.dart';
 
 //main page
 
@@ -21,12 +25,16 @@ void main() async{
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print(FirebaseClass.getCurrentUserUid());
+    print(AuthenticationService.getCurrentUserUid());
     return MaterialApp(
       title: 'Flutter Demo',
       // home: Container(),
-        initialRoute: FirebaseClass.getCurrentUserUid() != null ?
-        UsersList.id : LoginScreen.id,
+        initialRoute: AuthenticationService.getCurrentUserUid() != null
+             ?
+        ( AuthenticationService.getCurrentUser()!.emailVerified ?
+        UsersList.id  :
+        UsersList.id )
+            : LoginScreen.id,
         onGenerateRoute: (settings) {
           // Routes
           switch (settings.name) {
@@ -52,9 +60,19 @@ class MyApp extends StatelessWidget {
                             UsersList()
                         );
 
-            case AnimationPage.id  :
+            case AnimatedListSample.id  :
               return  MaterialPageRoute(builder: (_) =>
-                  AnimationPage()
+                  AnimatedListSample()
+              );
+
+            case VerificationPage.id  :
+              return  MaterialPageRoute(builder: (_) =>
+                  VerificationPage()
+              );
+
+            case ResetPage.id  :
+              return  MaterialPageRoute(builder: (_) =>
+                  ResetPage()
               );
 
             case TextFieldPage.id  :

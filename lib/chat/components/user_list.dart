@@ -1,5 +1,5 @@
 import 'package:chat_app/chat/models/chat_message.dart';
-import 'package:chat_app/firebase/firebase_class.dart';
+import 'package:chat_app/firebase/firestore_service.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:chat_app/utils/enums.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class _UserListState extends State<UserList> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(widget.user.name),
+                        Text(widget.user.name!),
                       ],
                     ),
                   ),

@@ -1,6 +1,7 @@
 import 'package:bubble/bubble.dart';
 import 'package:chat_app/chat/models/chat_message.dart';
-import 'package:chat_app/firebase/firebase_class.dart';
+import 'package:chat_app/firebase/authentication_service.dart';
+import 'package:chat_app/firebase/firestore_service.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:chat_app/utils/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -108,7 +109,7 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    FirebaseClass().readMessage(user: widget.user);
+    FirestoreService().readMessage(user: widget.user);
     super.initState();
   }
 
@@ -118,12 +119,12 @@ class _BodyState extends State<Body> {
       children: <Widget>[
         Expanded(
           child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseClass().messagesStream(uid: widget.user.uid),
+              stream: FirestoreService().messagesStream(uid: widget.user.uid),
               builder: (context, snapshot) {
-                FirebaseClass().readMessage(user: widget.user);
+                FirestoreService().readMessage(user: widget.user);
                 List<ChatMessage> chatMessages = [];
                 if (snapshot.hasData) {
-                  chatMessages = FirebaseClass().getMessages(snapshot);
+                  chatMessages = FirestoreService().getMessages(snapshot);
                 }
                 return SingleChildScrollView(
                   reverse: true,
@@ -155,7 +156,7 @@ class _BodyState extends State<Body> {
                           if (chatMessages[index].isRead &&
                               index == chatMessages.length - 1 &&
                               chatMessages[index].sentBy ==
-                                  FirebaseClass.getCurrentUserUid())
+                                  AuthenticationService.getCurrentUserUid())
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Align(
@@ -185,7 +186,7 @@ class _BodyState extends State<Body> {
   ChatBubble chatBubble(List<ChatMessage> chatMessages, int index) {
     return ChatBubble(
       messageType:
-          chatMessages[index].sentBy == FirebaseClass.getCurrentUserUid()
+          chatMessages[index].sentBy == AuthenticationService.getCurrentUserUid()
               ? MessageFrom.Sender
               : MessageFrom.Receiver,
       chatMessages: chatMessages[index],
